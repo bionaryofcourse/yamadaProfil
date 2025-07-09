@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" href="lolololo.jpg" type="image/jpg">
+    <link rel="icon" href="lolololo.jpg" type="image/jpg">
     <title>Aul.com</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -156,6 +156,17 @@
             width: 100%;
         }
         
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
         /* Hero Section with Animations */
         .hero {
             height: 100vh;
@@ -169,15 +180,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
         
         .hero-text {
             flex: 1;
             padding-right: 50px;
+            min-width: 300px;
         }
         
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 20px;
             background: linear-gradient(90deg, #38bdf8, #ffffff);
             -webkit-background-clip: text;
@@ -187,7 +200,7 @@
         }
         
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.2vw, 1.2rem);
             margin-bottom: 30px;
             color: #94a3b8;
             animation: fadeInLeft 1s ease-out 1s both;
@@ -203,6 +216,7 @@
             display: flex;
             gap: 20px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -245,6 +259,8 @@
             position: relative;
             display: flex;
             justify-content: center;
+            min-width: 300px;
+            margin-top: 40px;
             animation: fadeInRight 1s ease-out 0.8s both;
         }
         
@@ -254,8 +270,10 @@
         }
         
         .hero-image img {
-            width: 300px;
-            height: 300px;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            aspect-ratio: 1/1;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid #38bdf8;
@@ -273,7 +291,7 @@
         .section-title {
             text-align: center;
             margin-bottom: 60px;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             background: linear-gradient(90deg, #38bdf8, #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
@@ -285,14 +303,14 @@
         
         /* Projects Section Animation */
         .projects {
-            padding: 100px 0;
+            padding: 80px 0;
             background-color: #1e293b;
         }
         
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         .project-card {
@@ -319,7 +337,7 @@
         }
         
         .project-image {
-            height: 200px;
+            height: 180px;
             overflow: hidden;
         }
         
@@ -335,32 +353,34 @@
         }
         
         .project-info {
-            padding: 20px;
+            padding: 15px;
         }
         
         .project-info h3 {
             margin-bottom: 10px;
             color: #e2e8f0;
+            font-size: 1.2rem;
         }
         
         .project-info p {
             color: #94a3b8;
             margin-bottom: 15px;
+            font-size: 0.9rem;
         }
         
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 15px;
         }
         
         .project-tags span {
             background-color: #1e293b;
             color: #7dd3fc;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         
         .project-link {
@@ -369,6 +389,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
         
         .project-link:hover {
@@ -377,18 +398,18 @@
         
         /* Skills Section Animation */
         .skills {
-            padding: 100px 0;
+            padding: 80px 0;
         }
         
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
         }
         
         .skill-item {
             background-color: #1e293b;
-            padding: 25px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             transition: transform 0.3s;
@@ -411,8 +432,8 @@
         }
         
         .skill-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
 
         /* Custom colors for design software */
@@ -428,7 +449,7 @@
         /* Footer Animation */
         footer {
             background-color: #0f172a;
-            padding: 30px 0;
+            padding: 20px 0;
             text-align: center;
             border-top: 1px solid #1e293b;
             opacity: 0;
@@ -437,6 +458,99 @@
         
         footer p {
             color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: #1e293b;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-text p {
+                font-size: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+            
+            .project-image {
+                height: 150px;
+            }
+            
+            .skill-icon {
+                font-size: 1.8rem;
+            }
+            
+            .skill-item h3 {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -455,7 +569,10 @@
                     <img src="logoanime.jpg" alt="Logo" id="logo-img">
                     <span class="logo-text">Profile Area</span>
                 </div>
-                <ul class="nav-links">
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#projects">App</a></li>
                     <li><a href="#skills">Skills</a></li>
@@ -698,6 +815,12 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+                
+                // Close mobile menu if open
+                const navLinks = document.getElementById('nav-links');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
             });
         });
         
@@ -712,6 +835,24 @@
                 nav.style.padding = '20px 0';
                 nav.style.background = '#1e293b';
                 nav.style.backdropFilter = 'none';
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         });
     </script>
