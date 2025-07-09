@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" href="lolololo.jpg" type="image/jpg">
+    <title>Aul.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Loading Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #38bdf8;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Page Content - Initially Hidden */
+        .page-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navbar Styles with Animation */
+        nav {
+            background-color: #1e293b;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-100%);
+            animation: slideDown 0.8s ease-out 0.5s forwards;
+        }
+        
+        @keyframes slideDown {
+            to { transform: translateY(0); }
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .nav-links li:nth-child(1) { animation-delay: 1s; }
+        .nav-links li:nth-child(2) { animation-delay: 1.1s; }
+        .nav-links li:nth-child(3) { animation-delay: 1.2s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #38bdf8;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section with Animations */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #38bdf8, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInLeft 1s ease-out 0.8s both;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #94a3b8;
+            animation: fadeInLeft 1s ease-out 1s both;
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Social Media Icons Animation */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #94a3b8;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .social-links a:nth-child(1) { animation-delay: 1.2s; }
+        .social-links a:nth-child(2) { animation-delay: 1.3s; }
+        .social-links a:nth-child(3) { animation-delay: 1.4s; }
+        .social-links a:nth-child(4) { animation-delay: 1.5s; }
+        .social-links a:nth-child(5) { animation-delay: 1.6s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: #38bdf8;
+        }
+
+        /* Brand colors on hover */
+        .social-links .fa-github:hover { color: #333; }
+        .social-links .fa-linkedin-in:hover { color: #0077b5; }
+        .social-links .fa-twitter:hover { color: #1da1f2; }
+        .social-links .fa-youtube:hover { color: #ff0000; }
+        .social-links .fa-tiktok:hover { 
+            color: #000;
+            text-shadow: 0 0 5px #25f4ee, 0 0 10px #fe2c55;
+        }
+        
+        /* Hero Image Animation */
+        .hero-image {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 1s ease-out 0.8s both;
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #38bdf8;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Section Titles Animation */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #38bdf8, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        /* Projects Section Animation */
+        .projects {
+            padding: 100px 0;
+            background-color: #1e293b;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: #0f172a;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .project-card:nth-child(1) { animation-delay: 0.6s; }
+        .project-card:nth-child(2) { animation-delay: 0.8s; }
+        .project-card:nth-child(3) { animation-delay: 1.0s; }
+        .project-card:nth-child(4) { animation-delay: 1.2s; }
+        .project-card:nth-child(5) { animation-delay: 1.4s; }
+        .project-card:nth-child(6) { animation-delay: 1.6s; }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-info h3 {
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
+        
+        .project-info p {
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .project-tags span {
+            background-color: #1e293b;
+            color: #7dd3fc;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .project-link:hover {
+            color: #7dd3fc;
+        }
+        
+        /* Skills Section Animation */
+        .skills {
+            padding: 100px 0;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-item {
+            background-color: #1e293b;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .skill-item:nth-child(1) { animation-delay: 0.6s; }
+        .skill-item:nth-child(2) { animation-delay: 0.7s; }
+        .skill-item:nth-child(3) { animation-delay: 0.8s; }
+        .skill-item:nth-child(4) { animation-delay: 0.9s; }
+        .skill-item:nth-child(5) { animation-delay: 1.0s; }
+        .skill-item:nth-child(6) { animation-delay: 1.1s; }
+        .skill-item:nth-child(7) { animation-delay: 1.2s; }
+        .skill-item:nth-child(8) { animation-delay: 1.3s; }
+        
+        .skill-item:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+        
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Custom colors for design software */
+        .alight-motion { color: #4d9df7; }
+        .picsart { color: #2d9de7; }
+        .pixellab { color: #4285f4; }
+        .vscode { color: #0078d7; }
+        .ibispaint { color: #ff6b6b; }
+        .prisma3d { color: #5a67d8; }
+        .after-effects { color: #9999ff; }
+        .capcut { color: #00c4cc; }
+        
+        /* Footer Animation */
+        footer {
+            background-color: #0f172a;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+        
+        footer p {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Navbar -->
+        <nav>
+            <div class="container navbar">
+                <div class="logo">
+                    <img src="logoanime.jpg" alt="Logo" id="logo-img">
+                    <span class="logo-text">Profile Area</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">App</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Hi, I'm M.Auliya'a Alfan Fathoni</h1>
+                    <p>Halo aku Muhammad Aul,aku tinggal di pekiwen dan lahir di tahun 2008,cita-cita menjadi orang sukses,kalian bisa liat profil ku di sini</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://tiktok.com/@yourusername" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="imageprofil.jpg" alt="Profile Image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <h2 class="section-title">My App</h2>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="alightmotion.png" alt="Motion Graphics">
+                        </div>
+                        <div class="project-info">
+                            <h3>Alight Motion</h3>
+                            <p>⭐⭐⭐⭐⭐</p>
+                            <div class="project-tags">
+                                <span>Alight Motion</span>
+                                <span>Muhammad Aul</span>
+                                <span>Kennz</span>
+                                <span>Yamada Aoshi</span>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.alightcreative.motion&hl=id" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="ibispaint.png" alt="Photo Editing">
+                        </div>
+                        <div class="project-info">
+                            <h3>Ibis Paint X</h3>
+                            <p>⭐⭐⭐⭐</p>
+                            <div class="project-tags">
+                                <span>Ibis Paint X</span>
+                                <span>Muhammad Aul</span>
+                                <span>Kennz</span>
+                                <span>Yamada Aoshi</span>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=jp.ne.ibis.ibispaintx.app&hl=id" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="pisart.png" alt="3D Art">
+                        </div>
+                        <div class="project-info">
+                            <h3>Pisart</h3>
+                            <p>⭐⭐</p>
+                            <div class="project-tags">
+                                <span>Pistart</span>
+                                <span>Template</span>
+                                <span>Editing</span>
+                                <span>Hard</span>
+                            </div>
+                            <a href="https://play.google.com/store/apps/details?id=com.picsart.studio&hl=id" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="ae.png" alt="Video Editing">
+                        </div>
+                        <div class="project-info">
+                            <h3>After Effect</h3>
+                            <p>⭐⭐⭐⭐⭐</p>
+                            <div class="project-tags">
+                                <span>After Effect</span>
+                                <span>Video editing</span>
+                                <span>good</span>
+
+                            </div>
+                            <a href="https://www.yasir252.com/software/download-after-effects-cc-2015-gratis/" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="vsc.png" alt="Digital Art">
+                        </div>
+                        <div class="project-info">
+                            <h3>Visual Studio Code</h3>
+                            <p>⭐⭐⭐⭐⭐</p>
+                            <div class="project-tags">
+                                <span>Visual Studio Code</span>
+                                <span>App codig</span>
+                             
+                            </div>
+                            <a href="https://code.visualstudio.com/" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 6 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="prisma.png" alt="Motion Typography">
+                        </div>
+                        <div class="project-info">
+                            <h3>Prisma 3D</h3>
+                            <p>⭐⭐</p>
+                            <div class="project-tags">
+                                <span>Prisma 3D</span>
+                                <span>Animated 3D</span>
+                            </div>
+                            <a href="https://prisma3d.net/" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+            <div class="container">
+                <h2 class="section-title">My Skills</h2>
+                <div class="skills-container">
+                    <!-- Alight Motion -->
+                    <div class="skill-item">
+                        <div class="skill-icon alight-motion">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Alight Motion</h3>
+                    </div>
+                    
+                    <!-- PicsArt -->
+                    <div class="skill-item">
+                        <div class="skill-icon picsart">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>PicsArt</h3>
+                    </div>
+                    
+                    <!-- PixelLab -->
+                    <div class="skill-item">
+                        <div class="skill-icon pixellab">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3>PixelLab</h3>
+                    </div>
+                    
+                    <!-- VS Code -->
+                    <div class="skill-item">
+                        <div class="skill-icon vscode">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>VS Code</h3>
+                    </div>
+                    
+                    <!-- IbisPaint X -->
+                    <div class="skill-item">
+                        <div class="skill-icon ibispaint">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>IbisPaint X</h3>
+                    </div>
+                    
+                    <!-- Prisma 3D -->
+                    <div class="skill-item">
+                        <div class="skill-icon prisma3d">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3>Prisma 3D</h3>
+                    </div>
+                    
+                    <!-- After Effects -->
+                    <div class="skill-item">
+                        <div class="skill-icon after-effects">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>After Effects</h3>
+                    </div>
+                    
+                    <!-- CapCut -->
+                    <div class="skill-item">
+                        <div class="skill-icon capcut">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>CapCut</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2023 Creative Portfolio. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader-wrapper').style.opacity = '0';
+                document.querySelector('.page-content').style.opacity = '1';
+                document.querySelector('.page-content').style.transform = 'translateY(0)';
+                
+                setTimeout(function() {
+                    document.querySelector('.loader-wrapper').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Change navbar style on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '15px 0';
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.padding = '20px 0';
+                nav.style.background = '#1e293b';
+                nav.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
